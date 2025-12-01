@@ -1,1 +1,1 @@
-clang -I include sources/main.c sources/helper.c -o main.o && ./main.o
+clang -I include sources/main.c sources/helper.c sources/cr.c -o main.o && ./main.o

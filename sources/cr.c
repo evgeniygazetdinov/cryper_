@@ -1,0 +1,7 @@
+
+void crypt(){
+
+}
+void decript(){
+
+}

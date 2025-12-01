@@ -5,13 +5,13 @@
 
 
 int main(){
-
     FILE *file = open_text_file();
-
-    int file_size = get_file_size(file);
+    printf("%p\n", file);
+    long file_size = get_file_size(file);
+    printf("%ld\n", file_size);
     char *content = malloc(file_size);    
-    printf("%ld\n",file_size);
     fill_array_text_chars(content, file);
+    read_by_each_line(content, file_size);
     free(content);
     fclose(file);
     return 0;

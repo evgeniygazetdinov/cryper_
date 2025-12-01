@@ -10,29 +10,28 @@ FILE* open_text_file(){
     return file;
 }
 
-int get_file_size(FILE **file){
+int get_file_size(FILE *file){
     fseek(file, 0 ,SEEK_END);
     long file_size = ftell(file);
     fseek(file, 0, SEEK_SET);
     return file_size;
 }
 
-void fill_array_text_chars(char **arr_data, FILE *file){
+void fill_array_text_chars(char *arr_data, FILE *file){
     int count = 0;
     int ch;
     printf("error here");
     while ((ch = fgetc(file)) != EOF) {
-        printf("%c", ch);
-        *arr_data[count] = ch;
+        arr_data[count] = ch;
         count+=1;
     }
 }
 
-void read_by_each_line(char **content, int counter){
+void read_by_each_line(char *content, int counter){
     for(int i=0; i<counter;i++){
-        printf("%d\n",i);
-        printf("%s", content[i]);
+        printf("%c", content[i]);
     }
+    printf("\n");
       
 }
 
