@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+
 FILE* open_text_file(){
     FILE *file = fopen("random_text.txt", "r");
     if (!file){
@@ -20,7 +22,6 @@ int get_file_size(FILE *file){
 void fill_array_text_chars(char *arr_data, FILE *file){
     int count = 0;
     int ch;
-    printf("error here");
     while ((ch = fgetc(file)) != EOF) {
         arr_data[count] = ch;
         count+=1;
@@ -34,6 +35,8 @@ void read_by_each_line(char *content, int counter){
     printf("\n");
       
 }
+
+
 
 
 
