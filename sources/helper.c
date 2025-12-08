@@ -3,16 +3,15 @@
 #include <stdlib.h>
 
 #define PRINT_TYPE(x) _Generic((x), \
-    int: "int", \
-    char: "char", \
-    float: "float", \
-    double: "double", \
-    char*: "char*", \
-    const char*: "const char*", \
-    void*: "void*", \
-    char**: "char**",\
+    int: "int",                     \
+    char: "char",                   \
+    float: "float",                 \
+    double: "double",               \
+    char *: "char*",                \
+    const char *: "const char*",    \
+    void *: "void*",                \
+    char **: "char**",              \
     default: "unknown type")
-
 
 FILE *open_text_file()
 {
@@ -43,7 +42,7 @@ void fill_array_text_chars(char *arr_data, FILE *file)
   }
 }
 
-void read_by_each_line(char *content, int* counter)
+void read_by_each_line(char *content, int *counter)
 {
   for (int i = 0; i < *counter; i++)
   {
@@ -51,5 +50,3 @@ void read_by_each_line(char *content, int* counter)
   }
   printf("\n");
 }
-
-
