@@ -14,10 +14,38 @@ char* PUNKT_CHANGE = "^";
 const int SHIFT = 2;
 const int ALPHABET_SIZE = 29;
 
+int is_punkt_char(char * char_for_compare){
+  if (*char_for_compare == ' ' || *char_for_compare == ',' 
+    || *char_for_compare == '\n'|| *char_for_compare){
+        return 1;
+    }
+    return 0;
+}
+
+void handle_punkt_chars(char* array_for, int * position){
+    if (array_for[*position] == ' '){
+      array_for[*position] = ' ';
+    }
+    else if (array_for[*position] == '\n'){
+      array_for[*position] = '\n';
+    }
+    else if (array_for[*position] == ','){
+      array_for[*position] = ',';
+    }
+    else if (array_for[*position] == ';'){
+      array_for[*position] = ';';
+    }
+    else if (array_for[*position] == '\t'){
+      array_for[*position] = '\t';
+    }
+}
+
+
 int find_position(char for_find, char **current_case)
 {
   for (int i = 0; i < sizeof(LOWERCASE_ALPHABET) - 1; i++)
   {
+
     if (LOWERCASE_ALPHABET[i] == for_find)
     {
       *current_case = "lower";
@@ -32,20 +60,18 @@ int find_position(char for_find, char **current_case)
       return i;
     }
   }
-  for (int i = 0; i < sizeof(UPPERCASE_ALPHABET) - 1; i++)
-  {
-    if (PUNKT_CHARS[i] == for_find)
-    {
-      *current_case = "chars";
-      return i;
-    }
-  }
   return -1;
 }
 
 int get_new_position(int *position, char **current_case, char **array_for_choose)
 {
-  int new_position = (*position + SHIFT) % ALPHABET_SIZE;
+  int new_position;
+  if (*position == 666){
+    new_position = 666;
+  }
+  else{
+    new_position = (*position + SHIFT) % ALPHABET_SIZE;
+  }
   if (new_position < 0)
   {
     new_position += ALPHABET_SIZE;
@@ -58,23 +84,24 @@ int get_new_position(int *position, char **current_case, char **array_for_choose
   {
     *array_for_choose = UPPERCASE_ALPHABET;
   }
-  else if (strcmp(*current_case, "chars") == 0)
-  {
-    *array_for_choose = PUNKT_CODE_CHARS;
-  }
   else
   {
-    *array_for_choose = LOWERCASE_ALPHABET;
+    *array_for_choose = PUNKT_CHARS;
   }
   return new_position;
 }
 int decript_position(int *position, char **current_case, char **array_for_choose)
 {
   int new_position = (*position - SHIFT) % ALPHABET_SIZE;
+  if (*position == 666){
+    new_position = 666;
+  }
+  else{
   if (new_position < 0)
   {
     new_position += ALPHABET_SIZE;
   }
+}
   if (strcmp(*current_case, "lower") == 0)
   {
     *array_for_choose = LOWERCASE_ALPHABET;
@@ -85,7 +112,12 @@ int decript_position(int *position, char **current_case, char **array_for_choose
   }
   else if (strcmp(*current_case, "chars") == 0)
   {
-    *array_for_choose = PUNKT_CODE_CHARS;
+    *array_for_choose = PUNKT_CHARS;
+    
+  }
+  else if(strcmp(*current_case, "decode_chars"))
+  {
+      *array_for_choose = PUNKT_CODE_CHARS;
   }
   else
   {
@@ -102,10 +134,19 @@ void crypt(char *array_data, int *file_size)
   for (int i = 0; i < counter; i++)
   {
     char *current_case;
-    int position = find_position(array_data[i], &current_case);
-    char *array_with_chars;
-    int new_position = get_new_position(&position, &current_case, &array_with_chars);
-    crypted_array[i] = array_with_chars[new_position];
+    if(is_punkt_char(array_data[i])){
+      handle_punkt_chars(&array_data, &i);
+
+    }
+    else{
+
+    
+      int position = find_position(array_data[i], &current_case);
+      char *array_with_chars;
+      int new_position = get_new_position(&position, &current_case, &array_with_chars);
+
+      crypted_array[i] = array_with_chars[new_position];
+    }
   }
   for (int i = 0; i < counter; i++)
   {
@@ -122,8 +163,14 @@ void decrypt(char *array_data, int *file_size)
     char *current_case;
     int position = find_position(array_data[i], &current_case);
     char *array_with_chars;
-    int new_position = decript_position(&position, &current_case, &array_with_chars);
-    decript_array[i] = array_with_chars[new_position];
+    if (is_punkt_char(decript_array[i])){
+      handle_punkt_chars(&decript_array, &i);
+    }
+    else{
+      int new_position = decript_position(&position, &current_case, &array_with_chars);
+      decript_array[i] = array_with_chars[new_position];
+    }
+
   }
   for (int i = 0; i < counter; i++)
   {
