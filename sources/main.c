@@ -17,8 +17,8 @@ int main()
   read_by_each_line(content, &file_size);
   crypt(content, &file_size);
   read_by_each_line(content, &file_size);
-  decrypt(content, &file_size);
-  read_by_each_line(content, &file_size);
+  // decrypt(content, &file_size);
+  // read_by_each_line(content, &file_size);
   free(content);
   fclose(file);
   return 0;
