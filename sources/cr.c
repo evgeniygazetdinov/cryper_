@@ -25,7 +25,7 @@ int is_punkt_char(char * char_for_compare){
 }
 
 void handle_punkt_chars(char *array_for, int * position, char * crypted_array){
-    if (isspace(array_for[*position]) || array_for[*position] == ' ' || array_for[*position] == NULL){
+if (isspace(array_for[*position]) || array_for[*position] == ' ' || array_for[*position] == '\0') {
       crypted_array[*position] = ' ';
       array_for[*position] = ' ';
     }
@@ -153,27 +153,27 @@ void crypt(char *array_data, int *file_size)
     array_data[i] = crypted_array[i];
   }
 }
-// void decrypt(char *array_data, int *file_size)
-// {
-//   int counter = *file_size;
-//   char decript_array[counter];
-//   for (int i = 0; i < counter; i++)
-//   {
-//     char *current_case;
-//     int position = find_position(array_data[i], &current_case);
-//     char *array_with_chars;
-//     if (is_punkt_char(&decript_array[i])){
-//       handle_punkt_chars(array_data, &i, decript_array);
-//     }
-//     else{
-//       int new_position = decript_position(&position, &current_case, &array_with_chars);
-//       decript_array[i] = array_with_chars[new_position];
-//     }
+void decrypt(char *array_data, int *file_size)
+{
+  int counter = *file_size;
+  char decript_array[counter];
+  for (int i = 0; i < counter; i++)
+  {
+    char *current_case;
+    int position = find_position(array_data[i], &current_case);
+    char *array_with_chars;
+    if (is_punkt_char(&decript_array[i])){
+      handle_punkt_chars(array_data, &i, decript_array);
+    }
+    else{
+      int new_position = decript_position(&position, &current_case, &array_with_chars);
+      decript_array[i] = array_with_chars[new_position];
+    }
 
-//   }
-//   for (int i = 0; i < counter; i++)
-//   {
+  }
+  for (int i = 0; i < counter; i++)
+  {
 
-//     array_data[i] = decript_array[i];
-//   }
-// }
+    array_data[i] = decript_array[i];
+  }
+}

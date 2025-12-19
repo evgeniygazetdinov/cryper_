@@ -48,8 +48,9 @@ void read_by_each_line(char *content, int *counter)
       setlocale(LC_ALL, "el_GR.UTF-8");
   for (int i = 0; i < *counter; i++)
   {
-    if (content[i] == ' ' || content[i] == NULL || content[i] == ','
-    || content[i] == '\n'|| content[i] == '\t'|| content[i] == ' ,'){
+    if (content[i] == ' ' || content[i] == '\0' || content[i] == ','
+    || content[i] == '\n' || content[i] == '\t' || content[i] == '\r'
+    || content[i] == '\v' || content[i] == '\f') {
       printf(" ");
     } 
     else{
